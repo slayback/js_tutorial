@@ -1,0 +1,18 @@
+#!/usr/local/bin/node
+
+let fs = require("fs");
+let Phrase = require("slayback-palindrome");
+
+let text = fs.readFileSync("phrases.txt", "utf-8");
+text.split("\n").forEach(function(line) {
+  let phrase = new Phrase(line);
+  if (phrase.palindrome()) {
+    console.log("palindrome detected:", line);
+  }
+});
+
+fs.writeFile("palindromes.txt", text, (err) => {
+  if (err) throw err;
+
+  console.log("palindromes saved!");
+});
